@@ -3,7 +3,7 @@ from __future__ import print_function
 from jenkinsapi.jenkins import Jenkins
 from jenkinsapi.utils.crumb_requester import CrumbRequester
 host="https://jenkins.embention.net/"
-jenkins = Jenkins(host)#,   requester=CrumbRequester(baseurl=host))
+jenkins = Jenkins(host, ssl_verify=False)#,   requester=CrumbRequester(baseurl=host))
 
 params = {'VERSION': '1.2.3', 'PYTHON_VER': '2.7'}
 job='exampletravis'

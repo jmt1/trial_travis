@@ -1,11 +1,12 @@
 from __future__ import print_function
 import requests
 from jenkinsapi.jenkins import Jenkins
+import os
 from jenkinsapi.utils.crumb_requester import CrumbRequester
 host="https://jenkins.embention.net/"
 jenkins = Jenkins(host, ssl_verify=False)#,   requester=CrumbRequester(baseurl=host))
-
-params = {'VERSION': '1.2.3', 'hola': '2.7'}
+commit = os.environ["TRAVIS_COMMIT"]
+params = {'VERSION': '1.2.3', 'hola': commit}
 job='exampletravis'
 
 # This will start the job in non-blocking manner

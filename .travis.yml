@@ -1,8 +1,6 @@
 language: python
-os: windows
 python: 3.6
 install:
   - pip install jenkinsapi
 script: 
-  - python -u true.py
   - python jen.py

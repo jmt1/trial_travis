@@ -21,7 +21,7 @@ qi = job.invoke(build_params=params)
 
 # Block this script until build is finished
 if qi.is_queued() or qi.is_running():
-    qi.block_until_complete()
+    qi.block_until_complete(delay=50)
 
 build = qi.get_build()
 data=int(str(build).split("#")[1])

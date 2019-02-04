@@ -26,7 +26,7 @@ if qi.is_queued() or qi.is_running():
 build = qi.get_build()
 data=int(str(build).split("#")[1])
 last_failed = job.get_last_failed_buildnumber()
-r = requests.get(job.url+str(last_failed)+"/logText/progressiveHtml?start=0", verify=False)
+r = requests.get(job.url+"/"+str(data)+"/logText/progressiveHtml?start=0", verify=False)
 if data==last_failed:
     print("Ha falladooo esta build: "+str(build))
     print(r.text)

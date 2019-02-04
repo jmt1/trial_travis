@@ -1,11 +1,11 @@
 from __future__ import print_function
-
+import requests
 from jenkinsapi.jenkins import Jenkins
 from jenkinsapi.utils.crumb_requester import CrumbRequester
 host="https://jenkins.embention.net/"
 jenkins = Jenkins(host, ssl_verify=False)#,   requester=CrumbRequester(baseurl=host))
 
-params = {'VERSION': '1.2.3', 'PYTHON_VER': '2.7'}
+params = {'VERSION': '1.2.3', 'hola': '2.7'}
 job='exampletravis'
 
 # This will start the job in non-blocking manner
@@ -13,7 +13,8 @@ job='exampletravis'
 
 
 # This will start the job and will return a QueueItem object which
-# can be used to get build results
+# can be used to get bu
+# ild results
 job = jenkins[job]
 qi = job.invoke(build_params=params)
 
@@ -24,8 +25,11 @@ if qi.is_queued() or qi.is_running():
 build = qi.get_build()
 data=int(str(build).split("#")[1])
 last_failed = job.get_last_failed_buildnumber()
+r = requests.get(job.url+"logText/progressiveHtml?start=0")
 if data==last_failed:
     print("Ha falladooo esta build: "+str(build))
+    print(r.text)
     exit(1)
 print("Todo Correcto")
 print(build)
+print(r.text)

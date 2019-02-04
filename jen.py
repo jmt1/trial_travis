@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from jenkinsapi.jenkins import Jenkins
 from jenkinsapi.utils.crumb_requester import CrumbRequester
-host="http://jenkins.embention.net/"
+host="https://jenkins.embention.net/"
 jenkins = Jenkins(host)#,   requester=CrumbRequester(baseurl=host))
 
 params = {'VERSION': '1.2.3', 'PYTHON_VER': '2.7'}

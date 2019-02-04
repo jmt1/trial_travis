@@ -5,7 +5,7 @@ import os
 from jenkinsapi.utils.crumb_requester import CrumbRequester
 host="https://jenkins.embention.net/"
 jenkins = Jenkins(host, ssl_verify=False)#,   requester=CrumbRequester(baseurl=host))
-commit = os.environ["TRAVIS_COMMIT"]
+commit = "f6a6f13f025d81baa098bfc03beb4eff64418232"#os.environ["TRAVIS_COMMIT"]
 params = {'VERSION': '1.2.3', 'hola': commit}
 job='exampletravis'
 

@@ -1,9 +1,24 @@
-"""
-This example shows how to create job from XML file and how to delete job
-"""
 from __future__ import print_function
-from pkg_resources import resource_string
+
 from jenkinsapi.jenkins import Jenkins
 
 jenkins = Jenkins('http://jenkins.embention.net:1136/')
-print(jenkins.version)
+
+params = {}
+job='exampletravis'
+
+# This will start the job in non-blocking manner
+jenkins.build_job(job)
+
+
+# This will start the job and will return a QueueItem object which
+# can be used to get build results
+job = jenkins[job]
+qi = job.invoke()
+
+# Block this script until build is finished
+if qi.is_queued() or qi.is_running():
+    qi.block_until_complete()
+
+build = qi.get_build()
+print(build)

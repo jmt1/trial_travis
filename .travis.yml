@@ -3,4 +3,5 @@ python: 3.6
 install:
   - pip install jenkinsapi
 script: 
-  - python script\jen.py
+  - cd script
+  - python jen.py

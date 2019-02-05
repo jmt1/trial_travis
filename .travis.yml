@@ -1,5 +1,8 @@
 language: python
 python: 3.6
+env:
+  - TEST_SUITE=units
+  - TEST_SUITE=integrations
 install:
   - pip install jenkinsapi
 script: 

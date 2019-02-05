@@ -11,10 +11,9 @@ jenkins = Jenkins(host, ssl_verify=False, username=user,password=passw)#,   requ
 commit = "f6a6f13f025d81baa098bfc03beb4eff64418232"#os.environ["TRAVIS_COMMIT"]
 params = { 'hola': commit}
 job='exampletravis'
-
+ 
 # This will start the job in non-blocking manner
 #jenkins.build_job(job)
-
 
 # This will start the job and will return a QueueItem object which
 # can be used to get bu

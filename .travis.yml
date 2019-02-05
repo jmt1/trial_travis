@@ -1,18 +1,12 @@
 language: python
 python: 3.6
-matrix:
-  include:
-  - name: "3.5 Unit Test"
-    python: "3.5"
-    env: TEST_SUITE=suite_3_5_unit
-  - name: "3.5 Integration Tests"
-    python: "3.5"
-    env: TEST_SUITE=suite_3_5_integration
-  - name: "pypy Unit Tests"
-    python: "pypy"
-    env: TEST_SUITE=suite_pypy_unit
 install:
   - pip install jenkinsapi
 script: 
   - cd scripts
   - python jen.py
+  -if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then
+   curl -H "Authorization: token ${256203e7cc261e9343eeeeeef47129b93d096233}" -X POST \
+-d "{\"body\": \"Hello world\"}" \
+"https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
+  fi

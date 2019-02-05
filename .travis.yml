@@ -5,4 +5,4 @@ install:
 script: 
   - cd scripts
   - python jen.py
-  -if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then comment.sh fi 
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then bash ./comment.sh fi 

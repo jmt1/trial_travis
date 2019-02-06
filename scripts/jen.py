@@ -6,6 +6,7 @@ from jenkinsapi.utils.crumb_requester import CrumbRequester
 host="https://jenkins.embention.net/"
 user="EmbentionDevelopment"
 passw="tSRuc0uymyiui4GElkhF"
+requests.packages.urllib3.disable_warnings()
 
 jenkins = Jenkins(host, ssl_verify=False, username=user,password=passw)#,   requester=CrumbRequester(baseurl=host))
 commit = "f6a6f13f025d81baa098bfc03beb4eff64418232"#os.environ["TRAVIS_COMMIT"]
@@ -28,6 +29,7 @@ if qi.is_queued() or qi.is_running():
 build = qi.get_build()
 data=int(str(build).split("#")[1])
 last_failed = job.get_last_failed_buildnumber()
+
 r = requests.get(job.url+"/"+str(data)+"/logText/progressiveHtml?start=0", verify=False, auth=(user, passw))
 if data==last_failed:
     print("Ha falladooo esta build: "+str(build))

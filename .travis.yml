@@ -6,5 +6,6 @@ install:
 script: 
   - cd scripts
   - git diff --name-only --diff-filter=AM HEAD...$TRAVIS_BRANCH
+  - git diff --name-only HEAD...$TRAVIS_BRANCH
   - python jen.py
   - bash comment.sh

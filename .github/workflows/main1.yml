@@ -1,6 +1,6 @@
 name: CI
 
-on: [pull_request_review, pull_request]
+on: [pull_request_review]
 
 jobs:
   one:
@@ -30,7 +30,6 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
-      - name: Dummy
-        run: alex
+
         
       

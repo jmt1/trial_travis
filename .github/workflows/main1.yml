@@ -1,48 +1,18 @@
-name: CI
-
-on: [pull_request_review]
-
+on: 
+  pull_request_review:
+   types: [edited, dismissed, submitted]
 jobs:
-  labelWhenApproved:
-    name: Label when approved
+  one:
     runs-on: ubuntu-latest
     steps:
-    - name: Label when approved
-      uses: pullreminders/label-when-approved-action@master
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.7' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+    - name: Check approvals
       env:
-        APPROVALS: "1"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ADD_LABEL: "approved"
-        REMOVE_LABEL: "awaiting%20review"
-  one:
-    runs-on: ubuntu-16.04
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dummy
-        run: Alex
-
-        
-      
+      run: |
+        pip install requests
+        python ci/check_approvals.py --min_approvals 1

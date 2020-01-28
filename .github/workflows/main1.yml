@@ -42,7 +42,7 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
       - name: Dummy
-        run: cat $GITHUB_EVENT_PATH
+        run: Alex
 
         
       

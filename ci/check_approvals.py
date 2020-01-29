@@ -40,6 +40,10 @@ def check_aprovals(code_approvals, rest_approvals):
     headers = {'Authorization': 'token %s' % github_token}
     reviews = requests.get("https://api.github.com/repos/" + github_repository + "/pulls/" + str(number) + "/reviews",
                         headers=headers).json()
+    github_url_commits = "https://api.github.com/repos/" + github_repository + "/pulls/" + str(number) + "/commits"
+    commits = requests.get(github_url_commits, headers=headers)
+    commits_json = commits.json()
+    commit_id = commits_json[-1]["sha"]
 
     approvals = 0
     for label in labels:
@@ -59,7 +63,7 @@ def check_aprovals(code_approvals, rest_approvals):
 
     if approvals >= approvals_required:
         print("Approved")
-        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + str(number) + "",
+        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + commit_id,
                       json.dumps({
                           "state": "success",
                           "description": "You can merge",
@@ -67,7 +71,7 @@ def check_aprovals(code_approvals, rest_approvals):
                       }), headers=headers)
 
     else:
-        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + str(number) + "",
+        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + commit_id,
                       json.dumps({
                           "state": "pending",
                           "description": "You need 3 approvals to merge",

@@ -59,15 +59,20 @@ def check_aprovals(code_approvals, rest_approvals):
 
     if approvals >= approvals_required:
         print("Approved")
-        requests.post(
-            "https://api.github.com/repos/" + github_repository + "/issues/" + str(number) + "/labels",
-            json.dumps({
-                "labels": ["Approved"]}), headers=headers)
+        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + str(number) + "",
+                      json.dumps({
+                          "state": "success",
+                          "description": "You can merge",
+                          "context": "Required_3_approvals_to_merge"
+                      }), headers=headers)
 
     else:
-        requests.delete(
-            "https://api.github.com/repos/" + github_repository + "/issues/" + str(number) + "/labels/Approved",
-            headers=headers)
+        requests.post("https://api.github.com/repos/" + github_repository + "/statuses/" + str(number) + "",
+                      json.dumps({
+                          "state": "pending",
+                          "description": "You need 3 approvals to merge",
+                          "context": "Required_3_approvals_to_merge"
+                      }), headers=headers)
 
 
 if __name__ == '__main__':

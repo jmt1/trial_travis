@@ -66,7 +66,7 @@ def check_aprovals(code_approvals, rest_approvals):
 
     else:
         requests.delete(
-            "https://api.github.com/repos/" + github_repository + "/issues/" + str(number_pull) + "/labels/Approved",
+            "https://api.github.com/repos/" + github_repository + "/issues/" + str(number) + "/labels/Approved",
             headers=headers)
 
 

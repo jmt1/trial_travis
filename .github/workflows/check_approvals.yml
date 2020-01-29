@@ -15,4 +15,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         pip install requests
-        python ci/check_approvals.py --code_approvals 3 --rest_approvals 1
+        python ci/check_approvals.py --code_approvals 2 --rest_approvals 1

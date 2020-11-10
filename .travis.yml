@@ -1,6 +1,8 @@
 language: python
 python: 3.6
 install:
-  - pip install -r requirements.txt
+  - pip install jenkinsapi
+  - pip install github3.py
 script: 
-  - python -u true.py
+  - cd scripts
+  - python jen.py
